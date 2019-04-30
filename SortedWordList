@@ -1,0 +1,43 @@
+import java.util.Arrays;
+public class SortWordList extends java.util.ArrayList<String>
+{
+    public SortWordList()
+    {
+        super();
+    }
+    public SortWordList(int cap)
+    {
+        super(cap);
+    }
+    public int indexOf(String w)
+    {
+        int left = 0, right = size() - 1, mid;
+
+        while (left <= right)
+        {
+            mid = (left + right) / 2;
+            int diff = w.compareToIgnoreCase(get(mid));
+
+            if (diff > 0)
+            left = mid + 1;
+            else if (diff < 0)
+            right = mid - 1;
+            else
+            return mid;
+        }
+
+        return -1;
+    }
+    public boolean contains(String w)
+    {
+        return indexOf(w) >= 0;
+    }
+    public String set(int i, String w)
+    {
+        if ((i > 0 && w.compareToIgnoreCase(get(i-1)) <= 0) ||
+                      (i < size() - 1 && w.compareToIgnoreCase(get(i+1)) >= 0))
+        {
+            throw new IllegalArgumentException("word=" + w + " i=" + i);
+        }
+        return super.set(i,w);
+    }
